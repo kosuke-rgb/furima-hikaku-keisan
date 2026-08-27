@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>フリマ手数料計算・比較 | メルカリ・ラクマ・PayPayフリマ</title>
+<meta name="description" content="メルカリ・ラクマ・PayPayフリマの販売手数料と振込手数料を一度に計算・比較。出品価格を入れるだけで、どのアプリが一番手取りが多いか分かります。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@600;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6f4ef;
+  --surface: #ffffff;
+  --surface-2: #edeee9;
+  --ink: #1f2a24;
+  --muted: #63705f;
+  --line: #dde1d6;
+  --accent: #0f766e;
+  --accent-ink: #0b4f4a;
+  --best-bg: #e3f5ec;
+  --best-border: #0f766e;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141815;
+    --surface: #1c211d;
+    --surface-2: #232922;
+    --ink: #eaeee8;
+    --muted: #a3ac9c;
+    --line: #333a31;
+    --accent: #2dd4bf;
+    --accent-ink: #99f6e4;
+    --best-bg: #123028;
+    --best-border: #2dd4bf;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141815;
+  --surface: #1c211d;
+  --surface-2: #232922;
+  --ink: #eaeee8;
+  --muted: #a3ac9c;
+  --line: #333a31;
+  --accent: #2dd4bf;
+  --accent-ink: #99f6e4;
+  --best-bg: #123028;
+  --best-border: #2dd4bf;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+  line-height: 1.75;
+}
+.page { max-width: 760px; margin: 0 auto; padding: 2.5rem 1.1rem 4rem; }
+header.masthead { margin-bottom: 2rem; }
+h1 {
+  font-family: "Zen Old Mincho", serif;
+  font-weight: 900;
+  font-size: clamp(1.6rem, 5vw, 2.1rem);
+  margin: 0 0 0.6rem;
+  text-wrap: balance;
+}
+p.lede { color: var(--muted); margin: 0; max-width: 60ch; }
+.updated-note {
+  display: inline-block; margin-top: 0.8rem; font-size: 0.78rem; color: var(--muted);
+  background: var(--surface-2); padding: 0.3rem 0.7rem; border-radius: 999px;
+}
+
+.card {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 16px;
+  padding: 1.5rem; margin-bottom: 1.75rem;
+}
+h2 {
+  font-family: "Zen Old Mincho", serif; font-weight: 600; font-size: 1.25rem; margin: 0 0 1rem;
+}
+
+.field-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; }
+.field { flex: 1; min-width: 180px; }
+.field label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 0.35rem; }
+.field input[type="number"] {
+  width: 100%; font-family: "JetBrains Mono", monospace; font-size: 1.1rem;
+  padding: 0.6rem 0.8rem; border: 2px solid var(--line); border-radius: 8px;
+  background: var(--bg); color: var(--ink);
+}
+.field input:focus { outline: none; border-color: var(--accent); }
+.toggle-row { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+.toggle-row button {
+  flex: 1; font-family: inherit; font-size: 0.88rem; padding: 0.55rem;
+  border: 2px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--muted); cursor: pointer;
+}
+.toggle-row button[aria-pressed="true"] { border-color: var(--accent); color: var(--accent-ink); font-weight: 700; background: var(--best-bg); }
+
+table.compare { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+table.compare th, table.compare td {
+  padding: 0.65rem 0.6rem; text-align: right; border-bottom: 1px solid var(--line);
+}
+table.compare th:first-child, table.compare td:first-child { text-align: left; }
+table.compare thead th { color: var(--muted); font-weight: 500; font-size: 0.8rem; }
+table.compare td.num, table.compare th.num { font-family: "JetBrains Mono", monospace; font-variant-numeric: tabular-nums; }
+tr.best { background: var(--best-bg); }
+tr.best td:first-child { border-left: 3px solid var(--best-border); font-weight: 700; }
+.best-tag { display: inline-block; font-size: 0.72rem; background: var(--accent); color: #fff; padding: 0.1rem 0.5rem; border-radius: 999px; margin-left: 0.4rem; }
+
+.ref-table { overflow-x: auto; }
+.ref-table table { width: 100%; border-collapse: collapse; font-size: 0.88rem; min-width: 480px; }
+.ref-table th, .ref-table td { padding: 0.55rem 0.6rem; border-bottom: 1px solid var(--line); text-align: left; }
+.ref-table td.num { font-family: "JetBrains Mono", monospace; text-align: right; }
+
+article.explainer p { margin: 0 0 1rem; }
+article.explainer h3 { font-size: 1.02rem; margin: 1.4rem 0 0.5rem; }
+
+footer.site-footer {
+  margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+  font-size: 0.8rem; color: var(--muted);
+}
+footer.site-footer p { margin: 0 0 0.5rem; }
+
+.disclaimer {
+  font-size: 0.78rem; color: var(--muted); background: var(--surface-2);
+  border-radius: 10px; padding: 0.8rem 1rem; margin-top: 1rem;
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <header class="masthead">
+    <h1>フリマ手数料計算・比較ツール</h1>
+    <p class="lede">メルカリ・ラクマ・PayPayフリマ、同じ商品を出品したら手取りはいくら違う？ 価格を入れるだけで3社まとめて比較できます。</p>
+    <span class="updated-note" id="updatedNote">手数料率 最終確認日: 2026年8月27日</span>
+  </header>
+
+  <section class="card">
+    <h2>手取り計算</h2>
+    <div class="field-row">
+      <div class="field">
+        <label for="price">商品価格（円）</label>
+        <input type="number" id="price" min="0" step="1" value="3000">
+      </div>
+      <div class="field">
+        <label for="shipping">送料（円・出品者負担の場合）</label>
+        <input type="number" id="shipping" min="0" step="1" value="700">
+      </div>
+    </div>
+    <div class="toggle-row" role="group" aria-label="送料負担">
+      <button type="button" id="sellerPaysBtn" aria-pressed="true">送料は出品者負担</button>
+      <button type="button" id="buyerPaysBtn" aria-pressed="false">送料は購入者負担</button>
+    </div>
+
+    <div style="overflow-x:auto">
+      <table class="compare">
+        <thead>
+          <tr><th>サービス</th><th class="num">販売手数料</th><th class="num">振込手数料</th><th class="num">送料負担</th><th class="num">手取り</th></tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+    </div>
+    <p class="disclaimer">手数料率・振込手数料は変更されることがあります。出品前に必ず各サービスの公式ページで最新の情報をご確認ください。振込手数料は「一般的な条件」での目安です（振込先金融機関や振込方法により異なります）。</p>
+  </section>
+
+  <section class="card">
+    <h2>各社の手数料率 早見表</h2>
+    <div class="ref-table">
+      <table>
+        <thead><tr><th>サービス</th><th class="num">販売手数料</th><th>振込手数料の目安</th></tr></thead>
+        <tbody>
+          <tr><td>メルカリ</td><td class="num">10%</td><td>200円（メルペイ残高そのまま使う場合は無料）</td></tr>
+          <tr><td>ラクマ</td><td class="num">6%</td><td>楽天銀行は無料、その他金融機関は別途手数料</td></tr>
+          <tr><td>PayPayフリマ</td><td class="num">5%</td><td>PayPayマネーとして受け取る場合は無料</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <article class="explainer">
+      <h2>フリマアプリの手数料の仕組み</h2>
+      <p>フリマアプリでは、商品が売れた金額に対して「販売手数料」が差し引かれます。手数料率はアプリごとに異なり、同じ価格で出品しても手取り額に数百円単位の差が出ることがあります。</p>
+      <h3>販売手数料と振込手数料は別物</h3>
+      <p>販売手数料は「売れた金額」に対してかかる手数料です。一方、売上金を銀行口座に振り込んでもらう際には別途「振込手数料」がかかる場合があります。振込手数料は振込先の口座や、売上金をアプリ内のポイント・残高として使うかどうかで変わります。</p>
+      <h3>送料をどちらが負担するか</h3>
+      <p>「送料込み（出品者負担）」で出品するか、「着払い（購入者負担）」にするかでも手取りは変わります。送料込みの方が売れやすい傾向がありますが、その分手取りは減ります。</p>
+      <h3>結局どれで売るのが得か</h3>
+      <p>手数料率だけ見るとPayPayフリマが最も低いですが、実際の手取りは商品価格・送料・振込方法によって変わります。同じ商品を複数のアプリに出品する予定がある場合は、上の計算結果を目安に、手数料以外の要素（利用者数の多さ、売れやすさ）も含めて判断するのがおすすめです。</p>
+    </article>
+  </section>
+
+  <footer class="site-footer">
+    <p>本サイトの手数料情報は目安であり、正確性を保証するものではありません。実際の出品前には必ず各サービスの公式サイトで最新の手数料をご確認ください。</p>
+    <p>当サイトは広告を掲載する場合があります。</p>
+  </footer>
+</div>
+
+<script>
+(function () {
+  var RATES = {
+    mercari: { name: 'メルカリ', feeRate: 0.10, transferFee: 200 },
+    rakuma: { name: 'ラクマ', feeRate: 0.06, transferFee: 0 },
+    paypay: { name: 'PayPayフリマ', feeRate: 0.05, transferFee: 0 }
+  };
+
+  var priceInput = document.getElementById('price');
+  var shippingInput = document.getElementById('shipping');
+  var sellerPaysBtn = document.getElementById('sellerPaysBtn');
+  var buyerPaysBtn = document.getElementById('buyerPaysBtn');
+  var resultBody = document.getElementById('resultBody');
+  var sellerPays = true;
+
+  function yen(n) {
+    return Math.round(n).toLocaleString('ja-JP') + '円';
+  }
+
+  function render() {
+    var price = Math.max(0, Number(priceInput.value) || 0);
+    var shipping = Math.max(0, Number(shippingInput.value) || 0);
+    var shippingCost = sellerPays ? shipping : 0;
+
+    var rows = Object.keys(RATES).map(function (key) {
+      var r = RATES[key];
+      var fee = Math.round(price * r.feeRate);
+      var net = price - fee - shippingCost - r.transferFee;
+      return { key: key, name: r.name, fee: fee, transferFee: r.transferFee, shippingCost: shippingCost, net: net };
+    });
+
+    var bestNet = Math.max.apply(null, rows.map(function (r) { return r.net; }));
+
+    resultBody.innerHTML = rows.map(function (r) {
+      var isBest = r.net === bestNet;
+      return '<tr class="' + (isBest ? 'best' : '') + '">' +
+        '<td>' + r.name + (isBest ? '<span class="best-tag">最も手取りが多い</span>' : '') + '</td>' +
+        '<td class="num">-' + yen(r.fee) + '</td>' +
+        '<td class="num">-' + yen(r.transferFee) + '</td>' +
+        '<td class="num">-' + yen(r.shippingCost) + '</td>' +
+        '<td class="num">' + yen(r.net) + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  priceInput.addEventListener('input', render);
+  shippingInput.addEventListener('input', render);
+  sellerPaysBtn.addEventListener('click', function () {
+    sellerPays = true;
+    sellerPaysBtn.setAttribute('aria-pressed', 'true');
+    buyerPaysBtn.setAttribute('aria-pressed', 'false');
+    render();
+  });
+  buyerPaysBtn.addEventListener('click', function () {
+    sellerPays = false;
+    sellerPaysBtn.setAttribute('aria-pressed', 'false');
+    buyerPaysBtn.setAttribute('aria-pressed', 'true');
+    render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
