@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kosuke-rgb.github.io/furima-hikaku-keisan/sitemap.xml
