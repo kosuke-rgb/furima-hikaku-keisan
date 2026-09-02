@@ -107,6 +107,14 @@ tr.best td:first-child { font-weight: 700; }
 
 .disclaimer { font-size: 0.78rem; color: var(--muted); margin-top: 1rem; }
 
+.share-btn {
+  display: inline-flex; align-items: center; gap: 0.45rem; margin-top: 1.1rem;
+  padding: 0.55rem 1.1rem; border-radius: 999px; background: #000; color: #fff;
+  text-decoration: none; font-size: 0.85rem; font-weight: 700;
+}
+.share-btn:hover { opacity: 0.85; }
+.share-btn svg { width: 14px; height: 14px; fill: #fff; }
+
 .ad-slot { margin: 2.5rem 0; text-align: center; min-height: 100px; }
 
 .contact-box textarea {
@@ -183,6 +191,10 @@ footer.site-footer p { margin: 0 0 0.5rem; }
       </table>
     </div>
     <p class="disclaimer">手数料率・振込手数料は変更されることがあります。出品前に必ず各サービスの公式ページで最新の情報をご確認ください。振込手数料は「一般的な条件」での目安です（振込先金融機関や振込方法により異なります）。</p>
+    <a class="share-btn" id="shareBtn" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      結果をシェア
+    </a>
   </section>
 
   <section>
@@ -248,6 +260,7 @@ footer.site-footer p { margin: 0 0 0.5rem; }
   var sellerPaysBtn = document.getElementById('sellerPaysBtn');
   var buyerPaysBtn = document.getElementById('buyerPaysBtn');
   var resultBody = document.getElementById('resultBody');
+  var shareBtn = document.getElementById('shareBtn');
   var sellerPays = true;
 
   function yen(n) {
@@ -268,6 +281,7 @@ footer.site-footer p { margin: 0 0 0.5rem; }
     });
 
     var bestNet = Math.max.apply(null, rows.map(function (r) { return r.net; }));
+    var bestRow = rows.filter(function (r) { return r.net === bestNet; })[0];
 
     resultBody.innerHTML = rows.map(function (r) {
       var isBest = r.net === bestNet;
@@ -279,6 +293,11 @@ footer.site-footer p { margin: 0 0 0.5rem; }
         '<td class="num">' + yen(r.net) + '</td>' +
         '</tr>';
     }).join('');
+
+    var shareText = price.toLocaleString('ja-JP') + '円の商品、手数料を引いた手取りを比較したら\n' +
+      '一番お得だったのは' + bestRow.name + 'で ' + yen(bestRow.net) + '\n\n' +
+      'フリマ手数料計算・比較ツール';
+    shareBtn.href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent('https://webtools-labs.com/furima-hikaku-keisan/');
   }
 
   priceInput.addEventListener('input', render);
