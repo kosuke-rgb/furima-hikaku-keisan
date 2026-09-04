@@ -40,6 +40,29 @@
   "inLanguage": "ja"
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "メルカリ・ラクマ・Yahoo!フリマで一番手数料が安いのはどこですか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "販売手数料率はアプリによって異なり、さらにラクマは販売実績によって手数料率が変動する仕組みがあります。一概にどれが一番安いとは言えず、出品価格や販売実績によって最も手取りが多くなるアプリが変わるため、このツールで実際の金額を入力して比較するのが確実です。" }
+    },
+    {
+      "@type": "Question",
+      "name": "振込手数料も計算に含まれますか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "はい。販売手数料だけでなく、売上金を銀行口座に振り込む際にかかる振込手数料もあわせて計算します。振込手数料は振込金額やタイミングによって条件が変わることがあるため、実際に手元に残る金額をより正確に把握できます。" }
+    },
+    {
+      "@type": "Question",
+      "name": "ラクマの手数料率が販売実績で変わるのはなぜですか？",
+      "acceptedAnswer": { "@type": "Answer", "text": "ラクマでは、直近の販売実績に応じて手数料率が優遇される制度があります。よく利用するユーザーほど手数料が下がる仕組みのため、同じ出品価格でも人によって実際の手取り額が変わることがあります。" }
+    }
+  ]
+}
+</script>
 <style>
 :root {
   --bg: #ffffff;
@@ -145,6 +168,19 @@ footer.site-footer {
   font-size: 0.78rem; color: var(--muted);
 }
 footer.site-footer p { margin: 0 0 0.5rem; }
+
+.faq-item { border-bottom: 1px solid var(--line); padding: 0.9rem 0; }
+.faq-item:last-child { border-bottom: none; }
+.faq-item summary {
+  cursor: pointer; font-weight: 700; font-size: 0.92rem; list-style: none;
+  position: relative; padding-right: 1.6rem;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+'; position: absolute; right: 0; top: 0; color: var(--accent); font-weight: 700; font-size: 1.1rem;
+}
+.faq-item[open] summary::after { content: '−'; }
+.faq-item p { margin: 0.7rem 0 0; color: var(--muted); font-size: 0.88rem; }
 </style>
 </head>
 <body>
@@ -225,6 +261,22 @@ footer.site-footer p { margin: 0 0 0.5rem; }
       data-full-width-responsive="true"></ins>
     <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
   </div>
+
+  <section>
+    <h2>よくある質問</h2>
+    <details class="faq-item">
+      <summary>メルカリ・ラクマ・Yahoo!フリマで一番手数料が安いのはどこですか？</summary>
+      <p>販売手数料率はアプリによって異なり、さらにラクマは販売実績によって手数料率が変動する仕組みがあります。一概にどれが一番安いとは言えず、出品価格や販売実績によって最も手取りが多くなるアプリが変わるため、このツールで実際の金額を入力して比較するのが確実です。</p>
+    </details>
+    <details class="faq-item">
+      <summary>振込手数料も計算に含まれますか？</summary>
+      <p>はい。販売手数料だけでなく、売上金を銀行口座に振り込む際にかかる振込手数料もあわせて計算します。振込手数料は振込金額やタイミングによって条件が変わることがあるため、実際に手元に残る金額をより正確に把握できます。</p>
+    </details>
+    <details class="faq-item">
+      <summary>ラクマの手数料率が販売実績で変わるのはなぜですか？</summary>
+      <p>ラクマでは、直近の販売実績に応じて手数料率が優遇される制度があります。よく利用するユーザーほど手数料が下がる仕組みのため、同じ出品価格でも人によって実際の手取り額が変わることがあります。</p>
+    </details>
+  </section>
 
   <section class="contact-box">
     <h2>ご意見・追加してほしい機能</h2>
